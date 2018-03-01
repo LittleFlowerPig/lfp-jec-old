@@ -1,0 +1,11 @@
+server:
+  port: 20100
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10000/eureka/
+
+spring:
+  application:
+    name: jec-balance-user
