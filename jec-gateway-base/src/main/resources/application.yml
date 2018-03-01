@@ -1,0 +1,20 @@
+server:
+  port: 30101
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10000/eureka/
+
+spring:
+  application:
+    name: jec-gateway-base
+
+zuul:
+  routes:
+    user:
+      path: /user/**
+      serviceId: jec-balance-user
+    res:
+      path: /res/**
+      serviceId: jec-balance-res
