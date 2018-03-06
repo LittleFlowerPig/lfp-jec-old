@@ -16,3 +16,19 @@ spring:
       server:
         native:
           searchLocations: classpath:/cfg/
+    bus:
+      trace:
+        ## 开启消息跟踪
+        enabled: true
+  rabbitmq:
+    ## 消息队列配置
+    host: 172.20.19.112
+    port: 5672
+    virtual-host: sec_sc_demo
+    username: admin
+    password: Sec_123456
+
+management:
+  security:
+    ## 刷新时，关闭安全验证
+    enabled: false

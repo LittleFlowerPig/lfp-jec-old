@@ -9,3 +9,17 @@ eureka:
 spring:
   application:
     name: jec-service-res
+  cloud:
+    config:
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: jec-config-nati
+  rabbitmq:
+    ## 消息队列配置
+    host: 172.20.19.112
+    port: 5672
+    virtual-host: sec_sc_demo
+    username: admin
+    password: Sec_123456

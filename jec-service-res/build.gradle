@@ -30,6 +30,10 @@ ext {
 dependencies {
 	//微服务 - 注册服务
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
+	//配置服务 - 客户端
+	compile('org.springframework.cloud:spring-cloud-config-client')
+	//配置服务 - 消息总线
+	compile('org.springframework.cloud:spring-cloud-starter-bus-amqp')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

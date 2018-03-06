@@ -9,3 +9,10 @@ eureka:
 spring:
   application:
     name: jec-service-user
+  cloud:
+    config:
+      label: master
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: jec-config-git

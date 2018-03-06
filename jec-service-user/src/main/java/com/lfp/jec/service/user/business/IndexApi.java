@@ -10,9 +10,17 @@ public class IndexApi {
     @Value("${server.port}")
     private String port;
 
+    @Value("${config.type}")
+    private String config;
+
+    @Value("${database.type}")
+    private String database;
+
     @RequestMapping("/")
     public String index() {
-        return "Hello World! I am jec-service-user at port: "+ port;
+        return "Hello World! I am jec-service-user at port: "+port+
+                ", config.type is "+config+
+                ", database.type is "+database;
     }
 
 }
