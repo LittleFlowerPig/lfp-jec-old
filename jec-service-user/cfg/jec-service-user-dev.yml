@@ -1,0 +1,4 @@
+config:
+  type: git
+database:
+  type: oracle

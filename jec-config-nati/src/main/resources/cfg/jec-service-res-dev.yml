@@ -1,0 +1,4 @@
+config:
+  type: native
+database:
+  type: mysql
