@@ -30,7 +30,7 @@ ext {
 dependencies {
 	//微服务 - 注册服务
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	//断路器 - 看板
+	//断路器 - 监控看板
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
 	//断路器 - 聚合监控
 	compile('org.springframework.cloud:spring-cloud-starter-turbine')

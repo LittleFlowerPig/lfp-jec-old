@@ -28,14 +28,13 @@ ext {
 }
 
 dependencies {
-	//微服务 - 注册服务
-	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	//配置服务 - 客户端
-	compile('org.springframework.cloud:spring-cloud-config-client')
-
-	//链路追踪 - 客户端
-	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
-
+	//链路追踪 - 服务端
+	compile('io.zipkin.java:zipkin-server')
+	//链路追踪 - UI展现
+	compile('io.zipkin.java:zipkin-autoconfigure-ui')
+	//compile('io.zipkin.java:zipkin-autoconfigure-storage-mysql')
+	//compile('mysql:mysql-connector-java')
+	//compile('org.springframework.boot:spring-boot-starter-jdbc')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

@@ -9,6 +9,8 @@ eureka:
 spring:
   application:
     name: jec-service-user
+  zipkin:
+    base-url: http://localhost:12000
   cloud:
     config:
       label: master

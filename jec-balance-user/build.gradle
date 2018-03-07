@@ -40,6 +40,10 @@ dependencies {
 	//健康监控
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 
+
+	//链路追踪 - 客户端
+	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
