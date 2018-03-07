@@ -3,7 +3,7 @@ package com.lfp.jec.balance.res.business;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(value = "jec-service-res")
+@FeignClient(name = "jec-service-res", fallback = IndexError.class)
 public interface Index {
 
     @RequestMapping("/")

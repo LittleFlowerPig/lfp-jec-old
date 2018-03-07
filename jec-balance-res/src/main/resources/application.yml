@@ -9,3 +9,7 @@ eureka:
 spring:
   application:
     name: jec-balance-res
+
+feign:
+  hystrix:
+    enabled: true

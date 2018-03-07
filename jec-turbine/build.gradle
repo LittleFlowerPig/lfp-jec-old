@@ -30,15 +30,10 @@ ext {
 dependencies {
 	//微服务 - 注册服务
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	//负载均衡 - ribbon
-	compile('org.springframework.cloud:spring-cloud-starter-ribbon')
-
-	//断路器 - 故障返回
-	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-	//断路器 - 监控看板
+	//断路器 - 看板
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
-	//健康监控
-	compile('org.springframework.boot:spring-boot-starter-actuator')
+	//断路器 - 聚合监控
+	compile('org.springframework.cloud:spring-cloud-starter-turbine')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
