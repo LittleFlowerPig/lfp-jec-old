@@ -1,11 +1,20 @@
 server:
   port: 12000
 
-spring:
-  application:
-    name: jec-sleuth
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:10000/eureka/
+
+spring:
+  application:
+    name: jec-sleuth
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.20.19.112:3306/jec_dev?serverTimezone=Hongkong&useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: Sec_123456
+
+zipkin:
+  storage:
+    type: mysql

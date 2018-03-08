@@ -34,9 +34,12 @@ dependencies {
 	compile('io.zipkin.java:zipkin-server')
 	//链路追踪 - UI展现
 	compile('io.zipkin.java:zipkin-autoconfigure-ui')
-	//compile('io.zipkin.java:zipkin-autoconfigure-storage-mysql')
-	//compile('mysql:mysql-connector-java')
-	//compile('org.springframework.boot:spring-boot-starter-jdbc')
+
+	//链路追踪 - 持久化到数据库
+	compile('io.zipkin.java:zipkin-autoconfigure-storage-mysql')
+	compile('mysql:mysql-connector-java')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
