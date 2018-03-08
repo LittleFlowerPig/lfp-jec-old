@@ -9,7 +9,11 @@ eureka:
 spring:
   application:
     name: jec-gateway-base
-
+  zipkin:
+    base-url: http://localhost:12000
+  sleuth:
+    sampler:
+      percentage: 1.0
 zuul:
   routes:
     user:

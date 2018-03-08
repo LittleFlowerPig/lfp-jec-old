@@ -11,6 +11,9 @@ spring:
     name: jec-service-user
   zipkin:
     base-url: http://localhost:12000
+  sleuth:
+    sampler:
+      percentage: 1.0
   cloud:
     config:
       label: master

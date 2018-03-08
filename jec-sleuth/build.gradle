@@ -28,6 +28,8 @@ ext {
 }
 
 dependencies {
+	//微服务 - 注册服务
+	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	//链路追踪 - 服务端
 	compile('io.zipkin.java:zipkin-server')
 	//链路追踪 - UI展现

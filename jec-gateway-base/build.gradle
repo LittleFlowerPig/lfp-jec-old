@@ -32,6 +32,10 @@ dependencies {
 	compile('org.springframework.cloud:spring-cloud-starter-eureka')
 	//API网关 - zuul
 	compile('org.springframework.cloud:spring-cloud-starter-zuul')
+
+	//链路追踪 - 客户端
+	compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: jec-sleuth
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10000/eureka/
