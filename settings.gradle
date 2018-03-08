@@ -1,2 +1,4 @@
 rootProject.name = 'lfp-jec'
 
+include 'jec-frame-util'
+include 'jec-frame-base'

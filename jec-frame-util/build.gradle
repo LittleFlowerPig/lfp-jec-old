@@ -1,0 +1,67 @@
+group 'com.lfp.jec'
+version '1.0-SNAPSHOT'
+
+// 【插件】
+apply plugin: 'java'
+
+// 【兼容】
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// 【编码】, java编译的时候缺省状态下会因为中文字符而失败
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+// 【版本】
+ext {
+    slf4jVersion = '1.7.25'
+    log4j2Version = '2.8.2'
+    httpclientVersion = '4.5.3'
+}
+
+// 【仓库】
+repositories {
+    mavenCentral()
+}
+
+// 【配置】
+configurations.all {
+    // 每次构建时检查远程依赖是否存在更新
+    resolutionStrategy.cacheChangingModulesFor 0, 'hours'
+    // 采用动态版本声明的依赖不进行缓存
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    // 所有需要忽略的包
+    exclude group: 'commons-httpclient'    // 排除 commons-httpclient, 使用 Apache HttpClient
+    exclude group: 'commons-logging'       // 排除 commons-logging, 使用slf4j
+}
+
+// 【依赖】
+dependencies {
+    /** 编译依赖 compile() */
+    // 使用 slf4j 作为日志统一标准接口
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    // 将 commons-logging 转为 slf4j
+    compile("org.slf4j:jcl-over-slf4j:$slf4jVersion")
+    // JSON序列化工具
+    compile("com.alibaba:fastjson:1.2.46")
+    // 字符串工具类
+    compile("org.apache.commons:commons-lang3:3.0")
+    // httpclient 工具类
+    compile("org.apache.httpcomponents:httpclient:$httpclientVersion")
+    compile("org.apache.httpcomponents:httpmime:$httpclientVersion")
+    // freemarker 模板引擎
+    compile("org.freemarker:freemarker:2.3.23")
+    // groovy 支持
+    compile("org.codehaus.groovy:groovy-all:2.4.12")
+    // POI 工具类
+    compile("org.apache.poi:poi:3.17")
+    // servlet API
+    compile("javax.servlet:javax.servlet-api:4.0.0")
+
+    /** 运行依赖 runtime() */
+
+    /** 测试编译依赖 testCompile() */
+    testCompile("junit:junit:4.12")
+
+    /** 测试运行依赖 testRuntime() */
+
+}

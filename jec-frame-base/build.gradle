@@ -1,0 +1,87 @@
+group 'com.lfp.jec'
+version '1.0-SNAPSHOT'
+
+// 【插件】
+apply plugin: 'java'
+
+// 【兼容】
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// 【编码】, java编译的时候缺省状态下会因为中文字符而失败
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+// 【版本】
+ext {
+    slf4jVersion = '1.7.25'
+    log4j2Version = '2.8.2'
+    springVersion = '4.3.14.RELEASE'
+    hibernateVersion = '5.2.10.Final'
+    searchVersion = '5.7.1.Final'
+}
+
+// 【仓库】
+repositories {
+    mavenCentral()
+}
+
+// 【配置管理】
+configurations.all {
+    // 每次构建时检查远程依赖是否存在更新
+    resolutionStrategy.cacheChangingModulesFor 0, 'hours'
+    // 采用动态版本声明的依赖不进行缓存
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+    // 所有需要忽略的包
+    exclude group: 'commons-httpclient'    // 排除 commons-httpclient, 使用 Apache HttpClient
+    exclude group: 'commons-logging'       // 排除 commons-logging, 使用slf4j
+}
+
+// 【依赖管理】
+dependencies {
+    /** 编译依赖 compile() */
+    // 使用 slf4j 作为日志统一标准接口
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    // 将 commons-logging 转为 slf4j
+    compile("org.slf4j:jcl-over-slf4j:$slf4jVersion")
+    // JSON序列化工具
+    compile("com.alibaba:fastjson:1.2.46")
+    // 字符串工具类
+    compile("org.apache.commons:commons-lang3:3.0")
+    // servlet API
+    compile("javax.servlet:javax.servlet-api:4.0.0")
+
+    // spring MVC
+    compile("org.springframework:spring-webmvc:$springVersion")
+    // ORM,sessionFactory和transactionManager使用
+    compile("org.springframework:spring-orm:$springVersion")
+    // JDBC,动态数据源使用
+    compile("org.springframework:spring-jdbc:$springVersion")
+    // 字符串工具类
+    compile("org.hibernate:hibernate-core:$hibernateVersion")
+    // druid 数据库连接池
+    compile("com.alibaba:druid:1.1.1")
+    // c3p0 数据库连接池
+    compile("com.mchange:c3p0:0.9.5.2")
+    // fileupload 附件上传支持
+    compile("commons-fileupload:commons-fileupload:1.3.3")
+
+    /** 运行依赖 runtime() */
+
+    /** 测试编译依赖 testCompile() */
+    testCompile("junit:junit:4.12")
+    // spring JUnit,单元测试使用
+    testCompile("org.springframework:spring-test:$springVersion")
+
+    /** 测试运行依赖 testRuntime() */
+    //api,log4j2 接口
+    testRuntime("org.apache.logging.log4j:log4j-api:$log4j2Version")
+    //core,log4j2 核心
+    testRuntime("org.apache.logging.log4j:log4j-core:$log4j2Version")
+    //slf4j, 实现slf4j接口的日志记录
+    testRuntime("org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version")
+    //web, 应用云web项目可以免去在web.xml中的配置
+    testRuntime("org.apache.logging.log4j:log4j-web:$log4j2Version")
+    // mysql 数据库连接
+    testRuntime("mysql:mysql-connector-java:6.0.6")
+
+}
