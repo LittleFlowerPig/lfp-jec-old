@@ -16,9 +16,9 @@ import java.util.Map;
  * @author ZhuTao
  * @version 1.0
  */
-public class SqlQueryImpl implements SqlQuery {
-    private String headSql = "";
-    private String fromSql = "";
+public class SqlQueryImpl extends EntityQueryAbst<SqlQuery> implements SqlQuery {
+    private String headSql;
+    private String fromSql;
     private String whereSql = " WHERE 1=1";
     private String orderSql = "";
     private String addSql = "";
@@ -36,12 +36,6 @@ public class SqlQueryImpl implements SqlQuery {
     }
 
 
-    public SqlQuery formatEqual(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatEqual(name, value, key);
-    }
-
     public SqlQuery formatEqual(String name, Object value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -49,12 +43,6 @@ public class SqlQueryImpl implements SqlQuery {
             this.params.put(key, value);
         }
         return this;
-    }
-
-    public SqlQuery formatNotEqual(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatNotEqual(name, value, key);
     }
 
     public SqlQuery formatNotEqual(String name, Object value, String key) {
@@ -66,12 +54,6 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatLt(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatLt(name, value, key);
-    }
-
     public SqlQuery formatLt(String name, Object value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -79,12 +61,6 @@ public class SqlQueryImpl implements SqlQuery {
             this.params.put(key, value);
         }
         return this;
-    }
-
-    public SqlQuery formatLte(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatLte(name, value, key);
     }
 
     public SqlQuery formatLte(String name, Object value, String key) {
@@ -96,12 +72,6 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatGt(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatGt(name, value, key);
-    }
-
     public SqlQuery formatGt(String name, Object value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -109,12 +79,6 @@ public class SqlQueryImpl implements SqlQuery {
             this.params.put(key, value);
         }
         return this;
-    }
-
-    public SqlQuery formatGte(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatGte(name, value, key);
     }
 
     public SqlQuery formatGte(String name, Object value, String key) {
@@ -126,12 +90,6 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatLike(String name, String value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatLike(name, value, key);
-    }
-
     public SqlQuery formatLike(String name, String value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -139,12 +97,6 @@ public class SqlQueryImpl implements SqlQuery {
             this.params.put(key, "%"+value+"%");
         }
         return this;
-    }
-
-    public SqlQuery formatLikeLeft(String name, String value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatLikeLeft(name, value, key);
     }
 
     public SqlQuery formatLikeLeft(String name, String value, String key) {
@@ -156,12 +108,6 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatLikeRight(String name, String value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatLikeRight(name, value, key);
-    }
-
     public SqlQuery formatLikeRight(String name, String value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -171,12 +117,6 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatNotLike(String name, String value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatNotLike(name, value, key);
-    }
-
     public SqlQuery formatNotLike(String name, String value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
@@ -184,12 +124,6 @@ public class SqlQueryImpl implements SqlQuery {
             this.params.put(key, "%"+value+"%");
         }
         return this;
-    }
-
-    public SqlQuery formatBetween(String name, Object value1, Object value2) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatBetween(name, value1, value2, key);
     }
 
     public SqlQuery formatBetween(String name, Object value1, Object value2, String key) {
@@ -206,16 +140,19 @@ public class SqlQueryImpl implements SqlQuery {
         return this;
     }
 
-    public SqlQuery formatIn(String name, Object value) {
-        if (StringUtils.isBlank(name)) return this;
-        String key = formatKey(name);
-        return this.formatIn(name, value, key);
-    }
-
     public SqlQuery formatIn(String name, Object value, String key) {
         if (StringUtils.isBlank(name)) return this;
         if (validValue(value)){
             this.whereSql += " AND obj."+name+" IN (:"+ key+")";
+            this.params.put(key, value);
+        }
+        return this;
+    }
+
+    public SqlQuery formatNotIn(String name, Object value, String key) {
+        if (StringUtils.isBlank(name)) return this;
+        if (validValue(value)){
+            this.whereSql += " AND obj."+name+" NOT IN (:"+ key+")";
             this.params.put(key, value);
         }
         return this;
@@ -353,25 +290,6 @@ public class SqlQueryImpl implements SqlQuery {
     public boolean containsName(String name) {
         String key = formatKey(name);
         return this.params.containsKey(key);
-    }
-
-
-    /**
-     * 内部方法，根据属性名称获取map键
-     * @param name      属性名称
-     * @return key      sql参数名
-     */
-    private String formatKey(String name){
-        return name.replace(".", "_");
-    }
-
-    /**
-     * 内部方法，校验属性值是否需要进行查询
-     * @param value     属性值
-     * @return boolean  是否有效
-     */
-    private boolean validValue(Object value) {
-        return value != null && (!(value instanceof String) || StringUtils.isNotBlank(value.toString()));
     }
 
 }

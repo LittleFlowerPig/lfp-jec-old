@@ -14,7 +14,7 @@ import java.net.Socket;
  * @author ZhuTao
  * @version 1.0
  */
-public class SocketClient {
+public class NioSocketClient {
     /** Server 主机 */
     private static final String host = "127.0.0.1";
     /** Server 端口 */
@@ -36,11 +36,11 @@ public class SocketClient {
 
                 Thread.sleep(2000);
 
+                client.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        //client.close();
     }
 
     private static void init() throws Exception {

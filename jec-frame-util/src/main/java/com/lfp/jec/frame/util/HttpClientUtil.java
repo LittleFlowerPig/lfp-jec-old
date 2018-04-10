@@ -17,10 +17,7 @@ import org.apache.http.util.EntityUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Project: lfp-jec
@@ -270,5 +267,46 @@ public class HttpClientUtil {
             return null;
         }
     }
+
+
+    public static void main(String[] args) {
+        String url = "https://api.ums86.com:9600/sms/Api/Send.do";
+        Map<String, String> map = new HashMap<>();
+        map.put("SpCode", "201446");
+        map.put("LoginName", "sjz_gdjt");
+        map.put("Password", "159168");
+        map.put("MessageContent", "你有一项编号为1234的事务需要处理。");
+        map.put("UserNumber", "13269830702,18801109440");
+        map.put("SerialNumber", "12345678901234567890");
+        map.put("ScheduleTime", "");
+        map.put("f", "1");
+        String ret = HttpClientUtil.requestApi(url, map);
+        System.out.println(ret);
+    }
+
+
+    public static String requestApi(String url, Map<String, String> map) {
+        try {
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(url);
+
+            List<NameValuePair> params = fetchMapParams(map);
+            httpPost.setEntity(new UrlEncodedFormEntity(params,"GBK"));
+
+            HttpResponse resp = client.execute(httpPost);
+            String respContent = null;
+            if (resp.getStatusLine().getStatusCode() == 200) {
+                HttpEntity he = resp.getEntity();
+                respContent = EntityUtils.toString(he, "GBK");
+            }
+            return respContent;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
 
 }
